@@ -289,62 +289,62 @@
     }
     /* 각 카드의 배경 이미지 */
     .main_project > section > article .item_back_1 {
-    background-image: url("../img/chanse.png");
+    background-image: url(../img/chanse.PNG);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;    
     }
     /* item_back_2 ~ item_back_10 도 동일한 방식으로 정의 */
     .main_project > section > article .item_back_2 {
-    background-image: url("../img/nerve.png");
+    background-image: url(../img/nerve.PNG);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
     }
     .main_project > section > article .item_back_3 {
-    background-image: url("../img/challenge.png");
+    background-image: url(../img/challenge.PNG);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
     }
     .main_project > section > article .item_back_4 {
-    background-image: url("../img/immersion.png");
+    background-image: url(../img/immersion.PNG);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
     }
     .main_project > section > article .item_back_5 {
-    background-image: url("../img/confidence.png");
+    background-image: url(../img/confidence.PNG);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
     }
     .main_project > section > article .item_back_6 {
-    background-image: url("../img/fatigue.png");
+    background-image: url(../img/fatigue.PNG);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
     }
     .main_project > section > article .item_back_7 {
-    background-image: url("../img/encouragement.png");
+    background-image: url(../img/encouragement.PNG);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
     }
     .main_project > section > article .item_back_8 {
-    background-image: url("../img/recharge.png");
+    background-image: url(../img/recharge.PNG);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
     }
     .main_project > section > article .item_back_9 {
-    background-image: url("../img/advice.png");
+    background-image: url(../img/advice.PNG);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
     }
     .main_project > section > article .item_back_10 {
-    background-image: url("../img/teacher.PNG");
+    background-image: url(../img/teacher.PNG);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
