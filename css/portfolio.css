@@ -1,0 +1,614 @@
+        /*공통*/
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+        body{
+        width: 100vw;
+        overflow-x: hidden;
+        background: #F77F00;
+        }
+        ::-webkit-scrollbar {
+        display: none;
+        }
+        img {
+        display: block;
+        max-width: 100%;
+        }
+        a {
+        text-decoration: none;
+        }
+        /*상단 내비게이션*/
+        nav {
+        position: fixed;
+        width: 100%;
+        z-index: 1;
+        padding: 30pt 20pt 20pt 20pt;
+        font-weight: 700;
+        background: none;
+        top: 0;
+        }
+        nav.act {
+        position: sticky;
+        width: 100vw;
+        background: #000000;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        }
+        #navlogo {
+        max-width: 1490px;
+        margin: auto;
+        display: flex;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        bottom: 50px;
+        }
+        #navlogo img {
+        width: 50px;
+        height: 50px;
+        }
+        #navlogo p {
+        color: white;
+        font-size: 1.2rem;
+        padding: 10px 5px;
+        flex: 1;
+        text-shadow: 5px 1px 10px #000000;
+        }
+        #menu a {
+        color: white;
+        margin-left: 20pt;
+        text-shadow: 0 1px 10px rgb(48, 77, 135);
+        }
+        #menu a:hover {
+        color: #000000;
+        }
+        /* 모바일에서 pc 상단 네브 가리기 */
+        #appnav {
+        display: none;
+        }
+        #appmenu {
+        display: none;
+        }
+        #Portfolio{
+        margin-top: 100px;
+        width: 100%; 
+        min-height: 100vh;
+        height: auto;   
+        }
+        h2{
+        color: #ffffff;
+        font-size: 3rem;
+        font-weight: 700;    
+        text-shadow: 2px 2px 2px #000000;
+        display: block;
+        text-align: center;    
+        }  
+        #click {
+        display: block;
+        max-width: 100px;
+        margin: auto;
+        text-align: center;
+        transform: translateY(6vh);
+        }
+        #click i {
+        font-size: 2.5rem;
+        color: white;
+        display: block;
+        animation: upDown 1s infinite;
+        text-shadow: 0 1px 1px black;
+        }   
+        #click a {
+        color: white;
+        text-shadow: 2px 2px 2px #666;
+        }   
+        #space{
+            margin-top: 50px;
+        }
+        /* 형지엘리트 pc */
+        #hyung_pc {
+        width: 100%;
+        min-height: 100vh;
+        height: auto;
+        margin-top: 200px;  
+        display: flex;   
+        gap: 30px;
+        margin-left: 10%;
+        transform: translateX(-100%);
+        transition: transform 1s ease-out;
+        }
+        #hyung_pc.slide-in {
+        transform: translateX(0);
+        }
+        /* 모니터 영역 */
+        .monitor-container {
+        position: relative;
+        width: 400px;
+        height: 600px;    
+        }
+        .monitor-image {
+        width: 400px;
+        height: 400px;
+        display: block;
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        background: #ffffff;
+        filter: blur(1px);
+        }
+        .screen {
+        position: absolute;
+        top: 20%;
+        left: 15%;
+        width: 72%;
+        height: 26%;
+        overflow: hidden;
+        background: #ffffff;
+        }
+        /* 설명 영역 (형지엘리트 정보) */
+        .hyung_pc_explain {
+        position: relative;
+        width: 400px;
+        height: 400px;
+        background: #cac7c7;   
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px gray;
+        padding: 10px;
+        text-shadow: 2px 1px 2px #000000;
+        color: #F77F00;
+        font-weight: 700;
+        }
+        /* 포트폴리오 내용 내부 스타일 */
+        .hyung_pc_explain h3 {
+        font-size: 1.5rem;
+        padding-bottom: 10pt;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #F77F00;
+        }
+        .hyung_pc_explain ul {
+        list-style: none;
+        line-height: 2.5;
+        padding-bottom: 15pt;
+        margin: 0;
+        white-space: nowrap;    
+        }
+        .hyung_pc_explain li {
+        display: flex;
+        padding-bottom: 5px;
+        }
+        .hyung_pc_explain li b {
+        flex: 0.15;
+        font-weight: bold; 
+        letter-spacing: 0.2em;   
+        }
+        .hyung_pc_explain li span {
+        flex: 0.85;
+        text-align: justify;
+        letter-spacing: 0.1em;
+        }
+        /* 링크 버튼 스타일 */
+        .hyung_pc_explain a {
+        border: 1px solid blue;
+        border-radius: 5pt;
+        color: blue;
+        font-weight: 700;
+        font-size: 1rem;
+        display: inline-block;    
+        text-align: center; 
+        padding: 3px; 
+        text-decoration: none;
+        transition: background 0.3s ease, color 0.3s ease;
+        }  
+        .hyung_pc_explain a:hover{
+        background: #F77F00;
+        margin-bottom: 50px ;
+        color: #ffffff;
+        border: 1px solid #F77F00;
+        }
+        /* 포트폴리오 상세 애니메이션 (#port1) */
+        #port1 {
+        display: flex;  
+        flex-direction: row;  
+        }
+        /* 만약 #port1 내부에 추가 마진 조정이 필요하다면 */
+        #port1 div.left {
+        margin-right: 60pt;
+        }
+        #click_01 {
+        display: block;
+        max-width: 100px;
+        margin: auto;
+        text-align: center;
+        transform: translateY(-30vh);
+        }
+        #click_01 i {
+        font-size: 2.5rem;
+        color: white;
+        display: block;
+        animation: upDown 1s infinite;
+        text-shadow: 0 1px 1px black;
+        }   
+        #click_01 p {
+        color: white;
+        text-shadow: 2px 2px 2px #666;
+        }  
+        /* 형지엘리트 모바일 */
+        #hyung_mobile { 
+        display: flex;
+        margin-left: 45%;   
+        transform: translateX(200%);
+        transition: transform 1s ease-out;
+        gap: 20px;
+        } 
+        #hyung_mobile.slide-in {
+        transform: translateX(0);
+        }   
+        .mobile-container {
+        position: relative;
+        width: 370px; 
+        height: 770px;
+        overflow: hidden;
+        margin-left: 15px;
+        margin-top: 25px;     
+        }
+        .mobile-image {
+        width: 100%;
+        height: 100%x;  
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        background: #ffffff;
+        }
+        .screen_mobile {         
+        width: 100%;
+        height: 100%; 
+        margin-top: -770px;     
+        overflow: hidden;                   
+        }  
+        video {             
+        width: 100%;
+        height: 100%;
+        display: block; 
+        position: absolute;          
+        }   
+        /* 왼쪽 영역 (.left) 스타일 */
+        #port2 .left {
+        position: relative;
+        width: 400px;
+        height: 400PX;
+        margin-top: 150px;
+        background: #cac7c7;       
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px gray;
+        padding: 10px;
+        text-shadow: 2px 1px 2px #000000;
+        color: #F77F00;
+        font-weight: 700;
+        }
+        /* 제목 스타일 */
+        #port2 .left h3 {
+        font-size: 1.5rem;
+        padding-bottom: 10pt;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #F77F00;
+        }
+        /* 리스트 스타일 */
+        #port2 .left ul {
+        list-style: none;
+        line-height: 2.5;
+        padding-bottom: 15pt;
+        margin: 0;
+        White-space: nowrap; 
+        }
+        #port2 .left li {
+        display: flex;
+        padding-bottom: 5px;
+        }
+        #port2 .left li b {
+        flex: 0.15;         /* 글자와 내용 간의 비율 조정 */
+        font-weight: bold;
+        letter-spacing: 0.2em;  /* 라벨 텍스트 간격 */
+        }
+        #port2 .left li span {
+        flex: 0.85;
+        text-align: justify;
+        letter-spacing: 0.1em;
+        }
+        /* 링크 버튼 스타일 */
+        #port2 .left a {
+        border: 1px solid blue;
+        border-radius: 5pt;
+        color: blue;
+        font-weight: 700;
+        font-size: 1rem;
+        display: inline-block;
+        text-align: center;
+        padding: 3px
+        text-decoration: none;
+        transition: background 0.3s ease, color 0.3s ease;
+        }
+        #port2 .left a:hover {
+        background: #F77F00;
+        color: #ffffff;
+        border: 1px solid #F77F00;
+        margin-bottom: 50px ;
+        }
+        #click_02 {
+        display: block;
+        max-width: 100px;
+        margin: auto;
+        text-align: center;
+        transform: translateY(20vh);
+        }
+        #click_02 i {
+        font-size: 2.5rem;
+        color: white;
+        display: block;
+        animation: upDown 1s infinite;
+        text-shadow: 0 1px 1px black;
+        }   
+        #click_02 p {
+        color: white;
+        text-shadow: 2px 2px 2px #666;
+        } 
+        /* 네일아트 PC 섹션 */
+        #nail_pc {
+        width: 100%;
+        min-height: 100vh;
+        height: auto;
+        margin-top: 400px;
+        display: flex;
+        margin-left: -18%;
+        transform: translateX(-100%);
+        transition: transform 1s ease-out;
+        }
+        #nail_pc.slide-in {
+        transform: translateX(0);
+        }
+        /* 모니터 영역 */
+        .nail-pc-container {
+        position: relative;
+        width: 400px;
+        margin: 0 auto;
+        }
+        .sreen_nail-image {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        background: #000000;
+        filter: blur(1px);    
+        }
+        .sreen_nail_pc {
+        position: absolute;
+        top: 13%;
+        left: 15%;
+        width: 72%;
+        height: 18%;
+        overflow: hidden;
+        background: #000000;
+        }      
+        /* 포트폴리오 상세 내용 (#port3) */
+        #port3 .left {
+        position: relative;
+        width: 400px;
+        height: 400px;    
+        margin-left: -130%;
+        background: #cac7c7;    
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px gray;
+        padding: 10px;
+        text-shadow: 2px 1px 2px #000000;
+        color: #F77F00;
+        font-weight: 700;
+        left: 0;
+        }
+        #port3 .left h3 {
+        font-size: 1.5rem;
+        padding-bottom: 10pt;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #F77F00;
+        }
+        #port3 .left ul {
+        list-style: none;
+        line-height: 2.5;
+        padding-bottom: 15pt;
+        margin: 0;
+        white-space: nowrap;
+        }
+        #port3 .left li {
+        display: flex;
+        padding-bottom: 5px;
+        }
+        #port3 .left li b {
+        flex: 0.15;
+        font-weight: bold;
+        letter-spacing: 0.2em;
+        }
+        #port3 .left li span {
+        flex: 0.85;
+        text-align: justify;
+        letter-spacing: 0.1em;
+        }
+        /* 링크 버튼 스타일 */
+        #port3 .left a {
+        border: 1px solid blue;
+        border-radius: 5pt;
+        color: blue;
+        font-weight: 700;
+        font-size: 1rem;
+        display: inline-block;
+        text-align: center;
+        padding: 3px;
+        text-decoration: none;
+        transition: background 0.3s ease, color 0.3s ease;
+        }
+        #port3 .left a:hover {
+        background: #F77F00;
+        color: #ffffff;
+        border: 1px solid #F77F00;
+        }
+        #click_03 {
+        display: block;
+        max-width: 100px;
+        margin: auto;
+        text-align: center;
+        transform: translateY(-30vh);
+        }
+        #click_03 i {
+        font-size: 2.5rem;
+        color: white;
+        display: block;
+        animation: upDown 1s infinite;
+        text-shadow: 0 1px 1px black;
+        }   
+        #click_03 p {
+        color: white;
+        text-shadow: 2px 2px 2px #666;
+        }             
+        /* 네일아트 모바일 */
+        #nail_mobile { 
+        display: flex;   
+        margin-left: 45%;       
+        transform: translateX(200%);
+        transition: transform 1s ease-out;
+        gap: 20px;
+        }
+        #nail_mobile.slide-in {
+        transform: translateX(0);
+        } 
+        .nail-mobile-container {
+        position: relative;
+        width: 370px; 
+        height: 770px;
+        overflow: hidden;
+        margin-left: 15px;
+        margin-top: 25px;    
+        }
+        .nail-mobile-image {
+        width: 400px;
+        height: 400px;
+        display: block;
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        background: #ffffff;
+        filter: blur(1px);
+        }    
+        .screen_nail_mobile {
+        width: 100%;
+        height: 100%; 
+        margin-top: -770px;     
+        overflow: hidden;      
+        }  
+        video {
+        width: 100%;
+        height: 100%;
+        display: block; 
+        position: absolute;   
+        }   
+        /* 왼쪽 영역 (.left) 스타일 */
+        #port4 .left {
+        position: relative;
+        width: 400px;
+        height: 400PX;
+        margin-top: 150px;
+        background: #cac7c7;       
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px gray;
+        padding: 10px;
+        text-shadow: 2px 1px 2px #000000;
+        color: #F77F00;
+        font-weight: 700;
+        }
+        /* 제목 스타일 */
+        #port4 .left h3 {
+        font-size: 1.5rem;
+        padding-bottom: 10pt;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #F77F00;
+        }
+        /* 리스트 스타일 */
+        #port4 .left ul {
+        list-style: none;
+        line-height: 2.5;
+        padding-bottom: 15pt;
+        margin: 0;
+        White-space: nowrap; 
+        }
+        #port4 .left li {
+        display: flex;
+        padding-bottom: 5px;
+        }
+        #port4 .left li b {
+        flex: 0.15;         /* 글자와 내용 간의 비율 조정 */
+        font-weight: bold;
+        letter-spacing: 0.2em;  /* 라벨 텍스트 간격 */
+        }
+        #port4 .left li span {
+        flex: 0.85;
+        text-align: justify;
+        letter-spacing: 0.1em;
+        }
+        /* 링크 버튼 스타일 */
+        #port4 .left a {
+        border: 1px solid blue;
+        border-radius: 5pt;
+        color: blue;
+        font-weight: 700;
+        font-size: 1rem;
+        display: inline-block;
+        text-align: center;
+        padding: 3px
+        text-decoration: none;
+        transition: background 0.3s ease, color 0.3s ease;
+        }
+        #port4 .left a:hover {
+        background: #F77F00;
+        color: #ffffff;
+        border: 1px solid #F77F00;
+        margin-bottom: 50px ;
+        }
+        footer{
+        width: 100%; 
+        height: 600px;
+        margin-top: 300px; 
+        display: block;
+        position: relative;    
+        background: linear-gradient(225deg, #FF6655, #F77F00);    
+        color: white;  
+        }  
+        .fobox{
+        width: 75%; 
+        height: 100%;   
+        position: relative; 
+        align-content: center; 
+        left: 50%; 
+        transform: translateX(-50%);}
+        .fotxt{
+        width: 100%; 
+        height: 40px; 
+        display: flex; 
+        position: relative;}
+        .fotxt>div{
+        width: 15%;}
+        .fam{
+        position: absolute; 
+        right: 0; 
+        height: 35px; 
+        bottom: 20px; 
+        text-align: center; 
+        align-content: center; 
+        border-top: 0.1px solid rgba(255, 255, 255, 0.333); 
+        border-bottom: 1px solid rgba(255, 255, 255, 0.637);}
+        .fost{
+        width: 100%; 
+        height: 0.3px; 
+        background-color: rgba(255, 255, 255, 0.185); 
+        margin-bottom: 30px; 
+        margin-top: 10px;}
+        .foad{
+        width: 100%; 
+        height: 50px; 
+        color: rgba(255, 255, 255, 0.562); 
+        line-height: 30px;}
+        /* footer end */

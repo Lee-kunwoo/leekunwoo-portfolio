@@ -1,0 +1,249 @@
+        /*공통*/
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+        body{
+        width: 100vw;
+        overflow-x: hidden;
+        background: #F77F00;
+        }
+        ::-webkit-scrollbar {
+        display: none;
+        }
+        img {
+        display: block;
+        max-width: 100%;
+        }
+        a {
+        text-decoration: none;
+        }
+        /*상단 내비게이션*/
+        nav {
+        position: fixed;
+        width: 100%;
+        z-index: 1;
+        padding: 30pt 20pt 20pt 20pt;
+        font-weight: 700;
+        background: none;
+        top: 0;
+        }
+        nav.act {
+        position: sticky;
+        width: 100vw;
+        background: #000000;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        }
+        #navlogo {
+        max-width: 1490px;
+        margin: auto;
+        display: flex;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        bottom: 50px;
+        }
+        #navlogo img {
+        width: 50px;
+        height: 50px;
+        }
+        #navlogo p {
+        color: white;
+        font-size: 1.2rem;
+        padding: 10px 5px;
+        flex: 1;
+        text-shadow: 5px 1px 10px #000000;
+        }
+        #menu a {
+        color: white;
+        margin-left: 20pt;
+        text-shadow: 0 1px 10px rgb(48, 77, 135);
+        }
+        #menu a:hover {
+        color: #000000;
+        }
+        /* 모바일에서 pc 상단 네브 가리기 */
+        #appnav {
+        display: none;
+        }
+        #appmenu {
+        display: none;
+        }
+        #about{
+        margin-top: 100px;
+        width: 100%; 
+        min-height: 100vh;
+        height: auto;   
+        }
+        h2{
+        color: #ffffff;
+        font-size: 3rem;
+        font-weight: 700;    
+        text-shadow: 2px 2px 2px #000000;
+        display: block;
+        text-align: center;    
+        }     
+        #sec {
+        max-width:850pt; 
+        margin:auto; 
+        display:flex;
+        flex: 2; 
+        }
+        #sec1{
+        margin-top: 100px;
+        }
+        .picture_lee{
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;     
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+        background-image: url(../img/profile.PNG);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;      
+        } 
+        .picture_lee span{
+        color: #ffffff;
+        font-size: 1.5rem;
+        font-weight: 700;
+        position: absolute;
+        margin-top: 420px;
+        margin-left: 100px;
+        }   
+        #about h3 {
+        padding:50pt 0  10pt 0;
+        }   
+        #sec2 {
+        padding:20px; 
+        top:0;
+        /* margin-left:50px; */
+        }
+        /*profile*/
+        #about section:nth-child(1){
+        flex:1.3;
+        color: #ffffff;
+        text-shadow: 2px 2px 2px #000000;
+        }
+        /*Experiences & Education*/
+        #about section:nth-child(2){
+        flex:2; padding-right:20px;
+        color: #ffffff;
+        text-shadow: 2px 2px 2px #000000;
+        }
+        /*skill*/
+        #skill {
+        flex:1.2;
+        color: #ffffff;
+        text-shadow: 2px 2px 2px #000000;
+        }
+        #skill label {
+        font-size:0.8rem; font-weight:400;
+        display:inline-block; width:45%;
+        }
+        .
+        #skill progress {
+        width:40%; -webkit-appearance:none;
+        }
+        #skill ::-webkit-progress-bar {
+        background:#eee; 
+        height:10px; border-radius:5px;
+        text-shadow: 2px 2px 2px #000000;
+        }
+        #skill ::-webkit-progress-value {
+        background:#9fb4e7; border-radius:5px;
+        }
+        #click {
+        display: block;
+        max-width: 100px;
+        margin: auto;
+        text-align: center;
+        transform: translateY(3vh);
+        }
+        #click i {
+        font-size: 2.5rem;
+        color: white;
+        display: block;
+        animation: upDown 1s infinite;
+        text-shadow: 0 1px 1px black;
+        }   
+        #click a {
+        color: white;
+        text-shadow: 2px 2px 2px #666;
+        }
+        #contact {
+        background:#eee;
+        width: 100%;
+        min-height: 100vh; 
+        height: auto;
+        padding: 200px;       
+        }
+        #contact b {
+        display:block; 
+        font-size:1.2rem; 
+        font-weight: 400;
+        padding-top:20pt;
+        color: #F77F00;
+        }
+        #contact div {
+        max-width:600px; 
+        margin:auto; 
+        display:flex;
+        padding-top:10vh;
+        /* text-align: center; */
+        }
+        #contact section {
+        flex:1; text-align: center;
+        }
+        #contact i, #contact a.fas {
+        font-size: 5rem; color:#9fb4e7;
+        padding-bottom:10pt;
+        }
+        #contact a:last-child {
+        color:black;
+        }
+        footer{
+        width: 100%; 
+        height: 600px; 
+        display: block;
+        position: relative;    
+        background: linear-gradient(225deg, #FF6655, #F77F00);    
+        color: white;  
+        }  
+        .fobox{
+        width: 75%; 
+        height: 100%;   
+        position: relative; 
+        align-content: center; 
+        left: 50%; 
+        transform: translateX(-50%);}
+        .fotxt{
+        width: 100%; 
+        height: 40px; 
+        display: flex; 
+        position: relative;}
+        .fotxt>div{
+        width: 15%;}
+        .fam{
+        position: absolute; 
+        right: 0; 
+        height: 35px; 
+        bottom: 20px; 
+        text-align: center; 
+        align-content: center; 
+        border-top: 0.1px solid rgba(255, 255, 255, 0.333); 
+        border-bottom: 1px solid rgba(255, 255, 255, 0.637);}
+        .fost{
+        width: 100%; 
+        height: 0.3px; 
+        background-color: rgba(255, 255, 255, 0.185); 
+        margin-bottom: 30px; 
+        margin-top: 10px;}
+        .foad{
+        width: 100%; 
+        height: 50px; 
+        color: rgba(255, 255, 255, 0.562); 
+        line-height: 30px;}
+        /* footer end */
