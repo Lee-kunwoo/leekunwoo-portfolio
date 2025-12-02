@@ -1,117 +1,328 @@
-// 기존 jQuery 문서 준비 함수는 그대로 두되, 헤더 내 타이핑 효과(#typing)는 그대로 실행됩니다.
-$(document).ready(function(){
-    // 상단메뉴 배경색 조절 (기존 코드 유지)
-    if($(window).width() <= 600 ){
-    $("nav").addClass('act');
+/* ========================================
+   Constants - 설정값 관리
+   ======================================== */
+const CONFIG = {
+    TYPING_SPEED: 200,
+    AUTO_TYPING_SPEED: 100,
+    SCROLL_THRESHOLD: 190,
+    NAV_CHANGE_OFFSET: 100,
+    MOBILE_BREAKPOINT: 600,
+    
+    HEADER_TYPING_TEXT: `열정은 누구에게나 있지만
+실천하는 사람만이 
+꿈을 현실로 만든다`,
+    
+    AUTO_TYPING_LINES: [
+        { text: "꿈을 현실로 만드는 순간이 시작됩니다", id: "line1" },
+        { text: "웹퍼블리셔는 젊은 세대만이 할 수 있는 일은 아닙니다", id: "line2" },
+        { text: "저는 반백이 훨씬 지난 나이에도 불구하고 시작하였습니다", id: "line3" },
+        { text: "하나씩 하나씩 그 꿈을 이루기 위해 나아가고 있습니다", id: "line4" }
+    ],
+    
+    DREAM_GRADIENT: "linear-gradient(360deg, #FF6655, #F77F00, #000000)"
+};
+
+/* ========================================
+   Navigation
+   ======================================== */
+function initNavigation() {
+    const $nav = $("nav");
+    const $window = $(window);
+    
+    if ($window.width() <= CONFIG.MOBILE_BREAKPOINT) {
+        $nav.addClass('act');
+        return;
+    }
+    
+    const changePoint = $("#top").height() - CONFIG.NAV_CHANGE_OFFSET;
+    
+    $window.scroll(function() {
+        if ($window.scrollTop() >= changePoint) {
+            $nav.addClass('act');
+        } else {
+            $nav.removeClass('act');
+        }
+    });
 }
-else {
-    const change = $("#top").height()-100;
-    $(window).scroll(function(){
-if( $(window).scrollTop() >= change ){
-    $("nav").addClass('act');
-} else {
-    $("nav").removeClass('act');
+
+/* ========================================
+   Header Typing Effect - 헤더 타이핑 효과 (수정)
+   ======================================== */
+function initHeaderTyping() {
+    const typingText = CONFIG.HEADER_TYPING_TEXT;
+    const typingLength = typingText.length;
+    const typingElement = document.querySelector("#typing");
+    const scrollIcon = document.querySelector("#click");
+    
+    if (!typingElement) return;
+    
+    let index = 0;
+    let displayText = "";
+    
+    function typeCharacter() {
+        if (index < typingLength) {
+            displayText += typingText[index];
+            typingElement.innerText = displayText;
+            index++;
+            setTimeout(typeCharacter, CONFIG.TYPING_SPEED);
+        } else {
+            // 타이핑 완료 후 0.5초 뒤 스크롤 아이콘 표시
+            if (scrollIcon) {
+                setTimeout(() => {
+                    scrollIcon.classList.add('show');
+                }, 500);
+            }
+        }
     }
-});
+    
+    typeCharacter();
 }
-// 헤더 내 타이핑 효과 (기존 코드 유지)
-    const $typing = `
-    열정은 누구에게나 있지만
-    실천하는 사람만이 
-    꿈을 현실로 만든다
-    `;
-    const tyLen  = $typing.length;
-    let i = 0;
-    let txt = "";
-    function type(){
-if( i < tyLen ){
-    txt += $typing[i];
-    // #typing 요소에 타이핑 (기존 방식)
-    document.querySelector("#typing").innerText = txt;
-    i++;
-    setTimeout( type, 200);
-    }
-    }
-    type();	
-});
-     // 높이 190px 에 도달하면 배경색이 변함함
-    let dream = document.getElementById('dream');
+
+/* ========================================
+   Dream Section Background - 스크롤 시 배경색 변경
+   ======================================== */
+function initDreamBackground() {
+    const dreamElement = document.getElementById('dream');
+    if (!dreamElement) return;
+    
     let backgroundChanged = false;
+    
     window.addEventListener('scroll', function() {
-if (window.scrollY >= 190 && !backgroundChanged) {
-    backgroundChanged = true;
-    // 예시로 360도 각도로 변경 (transition으로 부드럽게 변경됨)
-    dream.style.background = "linear-gradient(360deg, #FF6655, #F77F00, #000000)";
-    console.log(window.scrollY)
+        if (window.scrollY >= CONFIG.SCROLL_THRESHOLD && !backgroundChanged) {
+            backgroundChanged = true;
+            // 클래스 추가로 CSS transition 활용
+            dreamElement.classList.add('scrolled');
+        } else if (window.scrollY < CONFIG.SCROLL_THRESHOLD && backgroundChanged) {
+            // 다시 위로 스크롤하면 원래대로
+            backgroundChanged = false;
+            dreamElement.classList.remove('scrolled');
+        }
+    });
 }
-});
-    const lines = [
-    { text: "꿈을 현실로 만드는 순간이 시작됩니다", id: "line1" },
-    { text: "웹퍼블리셔는 젊은 세대만이 할 수 있는 일은 아닙니다", id: "line2" },
-    { text: "저는 반백이 훨씬 지난 나이에도 불구하고 시작하였습니다", id: "line3" },
-    { text: "하나씩 하나씩 그 꿈을 이루기 위해 나아가고 있습니다", id: "line4" }
-    ];
-    let currentLine = 0;
+
+/* ========================================
+   [index.js] initAutoTyping 함수 전체 교체
+   ======================================== */
+
+function initAutoTyping() {
+    const lines = CONFIG.AUTO_TYPING_LINES;
+    let currentLineIndex = 0;
     let charIndex = 0;
     let isTyping = false;
-
+    let hasStarted = false;
+    let hasCompleted = false;
+    
     function typeLine() {
-    const line = lines[currentLine];
-    const typingElement = document.getElementById(line.id);
-if (charIndex < line.text.length) {
-    typingElement.textContent += line.text.charAt(charIndex);
-    charIndex++;
-    setTimeout(typeLine, 100); // 다음 글자 타이핑
-} else {
-    // 타이핑 완료 후 다음 줄로 이동
-    charIndex = 0;
-    currentLine++;
-    isTyping = false;
-}
-}
-    document.addEventListener("scroll", () => {
-    const dream = document.getElementById("autotyping");
-    const containerPosition = dream.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
+        const line = lines[currentLineIndex];
+        const typingElement = document.getElementById(line.id);
+        
+        if (!typingElement) return;
+        
+        // [수정 포인트 1] 타이핑 시작 시 커서 클래스 추가
+        if (charIndex === 0) {
+            typingElement.classList.add('active-cursor');
+        }
 
-// 컨테이너가 화면 중앙에 들어왔을 때
-if (containerPosition.top >= 0 && containerPosition.bottom <= viewportHeight) {
-if (!isTyping && currentLine < lines.length) {
-    isTyping = true;
-    typeLine();
-} else if (currentLine >= lines.length) {
-// 타이핑이 끝나면 초기화
-    currentLine = 0;
-    charIndex = 0;
-    lines.forEach(({ id }) => {
-    document.getElementById(id).textContent = ""; // 모든 텍스트 초기화
-});
+        if (charIndex < line.text.length) {
+            typingElement.textContent += line.text.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeLine, CONFIG.AUTO_TYPING_SPEED);
+        } else {
+            // [수정 포인트 2] 한 줄 타이핑 완료 시 처리
+            
+            // 현재 줄의 커서 제거 (깜빡임 멈춤)
+            typingElement.classList.remove('active-cursor');
+            
+            charIndex = 0;
+            currentLineIndex++;
+            
+            if (currentLineIndex >= lines.length) {
+                // 모든 줄 타이핑 완료
+                isTyping = false;
+                hasCompleted = true;
+                // 마지막 줄에 커서를 남기고 싶다면 아래 주석 해제
+                // typingElement.classList.add('active-cursor'); 
+            } else {
+                // 다음 줄 타이핑 시작
+                setTimeout(typeLine, CONFIG.AUTO_TYPING_SPEED);
+            }
+        }
+    }
+    
+    function resetTyping() {
+        currentLineIndex = 0;
+        charIndex = 0;
+        hasStarted = false;
+        hasCompleted = false;
+        lines.forEach(({ id }) => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.textContent = "";
+                // [수정 포인트 3] 리셋 시 모든 커서 클래스 제거
+                element.classList.remove('active-cursor');
+            }
+        });
+    }
+    
+    function checkVisibility() {
+        const autoTypingElement = document.getElementById("autotyping");
+        if (!autoTypingElement) return;
+        
+        const containerPosition = autoTypingElement.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        
+        const isVisible = containerPosition.top < viewportHeight * 0.7;
+        const isGone = containerPosition.bottom < 0;
+        
+        if (isVisible && !hasStarted && !isTyping) {
+            hasStarted = true;
+            isTyping = true;
+            typeLine();
+        } else if (isGone && hasCompleted) {
+            resetTyping();
+        }
+    }
+    
+    document.addEventListener("scroll", checkVisibility);
 }
-}
-});
 
-document.addEventListener("DOMContentLoaded", function() {
+/* ========================================
+   Video Popup - 비디오 팝업 제어
+   ======================================== */
+function initVideoPopup() {
     const popupDisplay = document.querySelector(".popup_display");
     const popupButton = document.querySelector(".card_popup");
     const closeButton = document.querySelector(".popup_close");
-
-    // Popup 버튼 클릭 시 전체화면 팝업 활성화
+    const video = document.querySelector(".popup_display video");
+    
+    if (!popupDisplay || !popupButton || !closeButton) return;
+    
     popupButton.addEventListener("click", function() {
-      // 팝업을 화면 전체에 고정
-      popupDisplay.style.position = "fixed";
-      popupDisplay.style.top = "0";
-      popupDisplay.style.left = "0";
-      // 팝업 보이기
-      popupDisplay.style.display = "block";
+        popupDisplay.style.position = "fixed";
+        popupDisplay.style.top = "0";
+        popupDisplay.style.left = "0";
+        popupDisplay.style.display = "block";
+        
+        if (video) {
+            video.play();
+        }
     });
-
-    // Close 버튼 클릭 시 팝업 숨김 (초기 상태 복원)
+    
     closeButton.addEventListener("click", function() {
-      popupDisplay.style.display = "none";
-      // 초기 상태 복원이 필요하다면 추가 스타일을 재설정할 수 있습니다.
-      popupDisplay.style.position = "absolute";
+        popupDisplay.style.display = "none";
+        popupDisplay.style.position = "absolute";
+        
+        if (video) {
+            video.pause();
+            video.currentTime = 0;
+        }
     });
-  });
+    
+    document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape" && popupDisplay.style.display === "block") {
+            closeButton.click();
+        }
+    });
+}
 
+/* ========================================
+   Portfolio Slider - 포트폴리오 슬라이더
+   ======================================== */
+function initPortfolioSlider() {
+    const $section = $('#section7');
+    if ($section.length === 0) return;
+    
+    $section.addClass('active');
+    
+    const $slides = $('.sec7 .slide_list li');
+    const slideCount = $slides.length;
+    const $dots = $('.sec7 .slide_dot li');
+    const $navButtons = $('.sec7 .slide_nav span');
+    
+    let currentIndex = 0;
+    
+    function updateSlidePosition(index) {
+        currentIndex = index;
+        
+        $slides.each(function(i) {
+            let offset = i - currentIndex;
+            if (offset < 0) {
+                offset += slideCount;
+            }
+            
+            for (let j = 0; j <= slideCount; j++) {
+                $(this).removeClass('item' + j);
+            }
+            
+            $(this).addClass('item' + (offset + 1));
+        });
+        
+        $dots.eq(index).addClass('active').siblings('li').removeClass('active');
+    }
+    
+    $navButtons.on('click', function() {
+        const isPrev = $(this).hasClass('prev');
+        const delta = isPrev ? -1 : 1;
+        let newIndex = (currentIndex + delta) % slideCount;
+        
+        if (newIndex < 0) {
+            newIndex += slideCount;
+        }
+        
+        updateSlidePosition(newIndex);
+    });
+    
+    $dots.on('click', function() {
+        const index = $(this).index();
+        updateSlidePosition(index);
+    });
+    
+    $(document).on('keydown', function(e) {
+        if (e.key === 'ArrowLeft') {
+            $navButtons.filter('.prev').trigger('click');
+        } else if (e.key === 'ArrowRight') {
+            $navButtons.filter('.next').trigger('click');
+        }
+    });
+}
 
-  
+/* ========================================
+   Scroll Animations - 스크롤 애니메이션
+   ======================================== */
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.2,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+    
+    const animatedElements = document.querySelectorAll('.sec7, .container');
+    animatedElements.forEach(function(element) {
+        observer.observe(element);
+    });
+}
+
+/* ========================================
+   Initialize All - 모든 초기화 함수 실행
+   ======================================== */
+$(document).ready(function() {
+    'use strict';
+    
+    initNavigation();
+    initHeaderTyping();
+    initDreamBackground();
+    initAutoTyping();
+    initPortfolioSlider();
+    initScrollAnimations();
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    initVideoPopup();
+});

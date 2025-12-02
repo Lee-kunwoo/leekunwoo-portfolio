@@ -1,556 +1,907 @@
-    /*공통*/
-    * {
+/* ========================================
+   CSS Variables - 스프링부트 통합 시 테마 관리 용이
+   ======================================== */
+:root {
+    /* Color Palette */
+    --color-primary: #FF6655;
+    --color-secondary: #F77F00;
+    --color-accent: #bc6100;
+    --color-dark: #6a3600;
+    --color-white: #ffffff;
+    --color-text-shadow: rgba(0, 0, 0, 0.7);
+
+    /* Gradient Colors */
+    --gradient-brown: linear-gradient(180deg,
+        rgb(73, 38, 0) 0%,
+        #6a3600 30%,
+        #824300 45%,
+        #bc6100 55%,
+        #f47d00 65%,
+        #fc6f36 80%,
+        #ff6653 100%);
+    --gradient-orange: linear-gradient(225deg, #FF6655, #F77F00);
+
+    /* Spacing */
+    --spacing-xs: 10px;
+    --spacing-sm: 20px;
+    --spacing-md: 30px;
+    --spacing-lg: 50px;
+    --spacing-xl: 100px;
+
+    /* Font Sizes */
+    --font-size-base: 1rem;
+    --font-size-lg: 1.2rem;
+    --font-size-xl: 2.5rem;
+    --font-size-2xl: 3rem;
+    --font-size-3xl: 50px;
+
+    /* Layout */
+    --max-width-container: 1490px;
+    --nav-height: 80px;
+
+    /* Transitions */
+    --transition-base: 0.3s ease;
+    --transition-slow: 0.7s;
+}
+
+/* ========================================
+   Common Styles
+   ======================================== */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    }
-    body{
+}
+
+body {
     width: 100vw;
     overflow-x: hidden;
-    }
-    ::-webkit-scrollbar {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+::-webkit-scrollbar {
     display: none;
-    }
-    img {
+}
+
+img {
     display: block;
     max-width: 100%;
-    }
-    a {
+}
+
+a {
     text-decoration: none;
-    }
-    /*상단 내비게이션*/
-    nav {
+}
+
+/* ========================================
+   Navigation
+   ======================================== */
+nav {
     position: fixed;
     width: 100%;
-    z-index: 1;
-    padding: 30pt 20pt 20pt 20pt;
+    z-index: 1000;
+    padding: var(--spacing-md) var(--spacing-sm);
     font-weight: 700;
     background: none;
     top: 0;
-    }
-    nav.act {
+    transition: background var(--transition-base);
+}
+
+nav.act {
     position: sticky;
-    width: 100vw;
     background: rgba(238, 238, 238, 0.1);
-    top: 0;
-    left: 0;
-    z-index: 1;
-    }
-    #navlogo {
-    max-width: 1490px;
+    backdrop-filter: blur(10px);
+}
+
+#navlogo {
+    max-width: var(--max-width-container);
     margin: auto;
     display: flex;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    bottom: 50px;
-    }
-    #navlogo img {
+    align-items: center;
+}
+
+#navlogo img {
     width: 50px;
     height: 50px;
-    }
-    #navlogo p {
-    color: white;
-    font-size: 1.2rem;
-    padding: 10px 5px;
+}
+
+#navlogo p {
+    color: var(--color-white);
+    font-size: var(--font-size-lg);
+    padding: var(--spacing-xs) 5px;
     flex: 1;
     text-shadow: 0 1px 10px rgb(235, 98, 7);
-    }
-    #menu a {
-    color: white;
-    margin-left: 20pt;
+}
+
+#menu {
+    display: flex;
+    align-items: center;
+}
+
+#menu a {
+    color: var(--color-white);
+    margin-left: var(--spacing-sm);
     text-shadow: 0 1px 10px rgb(48, 77, 135);
-    }
-    #menu a:hover {
-    color: rgb(238, 120, 10);
-    }
-    /* 모바일에서 pc 상단 네브 가리기 */
-    #appnav {
+    transition: color var(--transition-base);
+}
+
+#menu a:hover {
+    color: var(--color-secondary);
+}
+
+/* Mobile Navigation - Hidden by default */
+#appnav,
+#appmenu {
     display: none;
-    }
-    #appmenu {
-    display: none;
-    }
-    #top {
+}
+
+/* ========================================
+   Hero Section - Video Background (수정)
+   ======================================== */
+#top {
     background: #d0d5e1;
-    }
-    video {
-    width: 100%;
-    }
-    #scroll {
+}
+
+video {
+    width: 100%;        
+}
+
+#scroll {
     position: absolute;
     top: 0;
     width: 100%;
-    }
-    .op img {
+}
+
+.op img {
     position: relative;
     width: 280px;
     margin: auto;
     margin-top: 10vh;
     filter: drop-shadow(5px 5px 5px #000);
-    }
-    .op2 {
+}
+
+.op2 {
     animation: op2 3s infinite;
-    }
-    @keyframes op2 {
-    50% {
+}
+
+@keyframes op2 {
+50% {
     opacity: 0;
-    }
-    }
-    #typing {
+}
+
+}
+
+#typing {
     color: white;
     text-align: center;
     line-height: 160%;
     font-size: 2.5rem;
     text-shadow: 3px 3px 3px gold;
     height: 150px;
-    }
-    #click {
+}
+
+#click {
     display: block;
     max-width: 100px;
     margin: auto;
     text-align: center;
-    transform: translateY(35vh);
-    }
-    #click i {
+    transform: translateY(50vh);
+}
+
+#click i {
     font-size: 2.5rem;
     color: white;
     display: block;
     animation: upDown 1s infinite;
     text-shadow: 0 1px 1px black;
-    }
-    @keyframes upDown {
-    from {
+}
+
+@keyframes upDown {
+from {
     transform: translateY(-10pt);
     opacity: 0;
-    }
-    to {
+}
+
+to {
     transform: translateY(0);
     opacity: 1;
-    }
-    }
-    #click a {
+}
+
+}
+
+#click a {
     color: white;
     text-shadow: 0 1px 1px #666;
-    }
-    #dream{
+}
+
+#dream{
     width: 100%;
-    min-height: 100vh;
-    height: auto;
-    }
-    #autotyping {
+    height: 700px; 
+    margin-top: 0; 
+    background: linear-gradient(to bottom, #f39006, #854b04);     
+}
+
+#autotyping {
     width: 100%;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center; /* 텍스트를 가운데 정렬 */
-    height: 700px;
-    margin: 0;
-    }
-    .line-group {
+    height: 700px;       
+}
+
+.line-group {
     position: relative;
     width: 100%;
     height: 50px; /* 줄별 높이를 고정 */
     margin: 10px 0; /* 줄 간격 */  
-    }
-    .output-background {
+}
+
+.output-background {
+    /* 기존: color: rgba(74, 70, 70, 0.3); */
+    color: rgba(0, 0, 0, 0.05); /* 수정됨 */
+    /* 나머지 속성 유지 */
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: rgba(128, 128, 128, 0.3); /* 회색 배경 텍스트 */
     font-size: 3rem;
-    font-weight: bold;		
+    font-weight: bold;
     line-height: 1.5;
     white-space: nowrap;
     overflow: hidden;
-    }
-    .output-typing {
+}
+
+.output-typing {
+/* border-right: 2px solid black;  <-- 삭제 */
+/* animation: blink-caret 0.7s step-end infinite; <-- 삭제 */
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color:#ffffff; /* 타이핑 효과 텍스트 */
-    font-size: 3rem;
-    font-weight: bold;		
-    line-height: 1.5;
-    text-shadow: 3px 3px 3px #000000;
-    white-space: nowrap;
-    overflow: hidden;
-    border-right: 2px solid black;
-    animation: blink-caret 0.7s step-end infinite;
-    }
-    @keyframes blink-caret {
-    50% {
-    border-color: transparent;
-    }
-    }
-    .project_page { 
-    margin-top: 1000px;        
-    pointer-events: none;
-    position: relative;
-    margin-bottom: 300px;
-    }
-    .main_project {
-    width: 80vw;
-    height: 80vw;
-    position: absolute;  
-    bottom: -50vw;
-    left: 10vw;
-    transform-origin: center center;
-    transform: rotate(0deg);   
-    }
-    .main_project > section {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    }
-    .main_project > section > article {
-    width: 15vw;
-    height: 20vw;
-    pointer-events: all;
-    perspective: 100vw;
-    position: absolute;
-    transform-origin: bottom center;
-    filter: drop-shadow(0.2vw 0.2vw 0.2vw rgba(0, 0, 0, 0.3));
-    top: calc(50% - 20vw);
-    left: calc(50% - 7.5vw);
-    cursor: pointer; /* 카드에 마우스 오버 시 포인터 모양 변경 */
-    }
-    /* 각 카드의 초기 위치(반원형 배치) */
-    .main_project > section > article:nth-child(1) {
-    transform: rotate(0deg) translateY(-30vw);
-    }
-    .main_project > section > article:nth-child(2) {
-    transform: rotate(36deg) translateY(-30vw);
-    }
-    .main_project > section > article:nth-child(3) {
-    transform: rotate(72deg) translateY(-30vw);
-    }
-    .main_project > section > article:nth-child(4) {
-    transform: rotate(108deg) translateY(-30vw);
-    }
-    .main_project > section > article:nth-child(5) {
-    transform: rotate(144deg) translateY(-30vw);
-    }
-    .main_project > section > article:nth-child(6) {
-    transform: rotate(180deg) translateY(-30vw);
-    }
-    .main_project > section > article:nth-child(7) {
-    transform: rotate(216deg) translateY(-30vw);
-    }
-    .main_project > section > article:nth-child(8) {
-    transform: rotate(252deg) translateY(-30vw);
-    }
-    .main_project > section > article:nth-child(9) {
-    transform: rotate(288deg) translateY(-30vw);
-    }
-    .main_project > section > article:nth-child(10) {
-    transform: rotate(324deg) translateY(-30vw);
-    }
-    /* 카드 내부 3D 플립 효과 */
-    .main_project > section > article > div {
-    width: 100%;
-    height: 100%;
-    border-radius: 0.5vw;
-    transform-origin: center center;
-    transform-style: preserve-3d;
-    transition: all 1s;
-    pointer-events: all;
-    position: absolute;
-    cursor: auto;
-    backface-visibility: hidden;
-    z-index: 10
-    }
-    .main_project > section > article > div:nth-child(1) {
-    transform: rotateY(180deg);
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
-    z-index: -10;
-    }
-    .main_project > section > article > div:nth-child(2) {
-    transform: rotateY(0deg);
-    background-color: #F65;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-    }
-    .main_project > section > article > div:nth-child(2) p {
-    color: #FFF;
-    font-size: 2.5vw;
-    font-weight: 500;
-    font-family: "Jua", sans-serif;
-    text-shadow: 3px 3px 3px #000000;
-    }
-    /* 각 카드의 배경 이미지 */
-    .main_project > section > article .item_back_1 {
-    background-image: url("../img/chanse.PNG");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;    
-    }
-    /* item_back_2 ~ item_back_10 도 동일한 방식으로 정의 */
-    .main_project > section > article .item_back_2 {
-    background-image: url("../img/nerve.PNG");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    }
-    .main_project > section > article .item_back_3 {
-    background-image: url("../img/challenge.PNG");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    }
-    .main_project > section > article .item_back_4 {
-    background-image: url("../img/immersion.PNG");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    }
-    .main_project > section > article .item_back_5 {
-    background-image: url("../img/confidence.PNG");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    }
-    .main_project > section > article .item_back_6 {
-    background-image: url("../img/fatigue.PNG");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    }
-    .main_project > section > article .item_back_7 {
-    background-image: url("../img/encouragement.PNG");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    }
-    .main_project > section > article .item_back_8 {
-    background-image: url("../img/recharge.PNG");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    }
-    .main_project > section > article .item_back_9 {
-    background-image: url("../img/advice.PNG");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    }
-    .main_project > section > article .item_back_10 {
-    background-image: url("../img/teacher.PNG");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    }
-    /* 클릭(또는 hover) 시 플립 효과 */
-    .main_project > section > article.flipped > div:nth-child(1),
-    .main_project > section > article:hover > div:nth-child(1) {
-    transform: rotateY(360deg) scale(1.3);
-    transition: all 0.5s;
-    z-index: 100;
-    }
-    .main_project > section > article.flipped > div:nth-child(2),
-    .main_project > section > article:hover > div:nth-child(2) {
-    transform: rotateY(180deg) scale(1.3);
-    transition: all 0.5s;
-    z-index: -100;
-    }              
-    @keyframes project_arrow {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(10px); }
-    100% { transform: translateY(0); }
-    }    
-    .scroll {   
-    font-size: 3rem;
-    font-weight: 700;
-    color: #F77F00;           
-    margin-top: 600px;
-    text-shadow: 2px 2px 2px gray;
-    display: block;
-    text-align: center;
-    }
-    .popup_display{      
-    width: 100vw;  
-    height: 100vh;       
-    position: absolute; 
-    filter: drop-shadow(1vw 1vw 2vw rgba(0, 0, 0, 0.3));
-    background: #000000;
-    display: none;
-    z-index: 10000;   
-    }
-    #movie {   
-    margin-top: 10px;  
-    }
-   /* }
-   #movie video {
-    width:1400px; 
-    height:1200px; 
-    display:block; 
-    margin-top: 10px;
-    transition:all 2s; 
-   }
-   #movie video.big {
-    animation: bb 3s 0.5s both;
-   }
-   @keyframes bb {
-    from {width:1200px; height:1000px;}
-    to   {width:1400px;  height:1200px;}
-   } */
-   .popup_close{
-    background: #FFF;
-    border-radius: 1vw;
-    border: 0.3vw solid #F65;
-    width: 5vw;
-    height: 2vw;
-    line-height: 1vw;
-    color: #F65;
-    font-size: 1vw;   
-    cursor: pointer;
-    margin-left: 50%;     
-    }
-    .popup_close:hover{
-    background-color: #F65;
-    color: #FFF;    
-    filter: drop-shadow(0.5vh 0.5vh 0 rgba(0, 0, 0, 0.3));
-    transition: all 0.5s;
-    }
-    .popup_display p{
-    color: red;
-    margin-left: 50px;
-    font-size: 1.5rem;        
-    }
-    .popup_display span{
     color: #ffffff;
-    text-align: left;
-    font-size: 1rem; 
-    margin-left: 50px;      
-    }   
-    #pop{
-    width: 100%;
-    min-height: 100vh;
-    height: auto;
-    margin-top: 1800px;
-    position: relative; 
-    justify-content: space-between;  
-    align-items: center; 
-    bottom: 0; 
-    }
-    .video_info{
-    color: #F77F00;
     font-size: 3rem;
-    font-weight: 700;    
+    font-weight: bold;
+    line-height: 1.5;
+    text-shadow: 3px 3px 3px #000000;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* 3. [신규 추가] 활성화된 줄에만 적용될 커서 스타일 */
+.output-typing.active-cursor {
+    border-right: 2px solid #ffffff; /* 흰색 커서 (배경에 맞게 변경 가능) */
+    padding-right: 5px; /* 커서와 글자 사이 간격 살짝 줌 */
+    animation: blink-caret 0.7s step-end infinite;
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: #ffffff; } /* 커서 색상 */
+}
+
+/* ========================================
+   Portfolio Slider Section
+   ======================================== */
+#section7 {
+    height: auto;
+    background: var(--gradient-brown);
+    position: relative;
+}
+
+#click_top {
+    display: block;
+    max-width: 100px;
+    margin: auto;
+    text-align: center;
+    padding-top: 5vh;
+    margin-bottom: var(--spacing-lg);
+}
+
+#click_top i {
+    font-size: var(--font-size-xl);
+    color: var(--color-white);
+    display: block;
+    animation: scrollBounce 1s infinite;
+    text-shadow: 0 1px 1px black;
+}
+
+#click_top a {
+    color: var(--color-white);
+    text-shadow: 0 1px 1px #666;
+    cursor: pointer;
+}
+
+/* Container */
+.container {
+    height: auto;
+    position: relative;
+    max-width: 1420px;
+    margin: 0 auto;
+    padding: var(--spacing-xl) 16px;
+    overflow: hidden;
+}
+
+.container .heading1 {
+    color: var(--color-white);
+    font-size: var(--font-size-3xl);
+    margin-bottom: 15vh;
+    text-align: center;
+}
+
+/* Slider Animation */
+#section7 .sec7 {
+    height: 600px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20%);
+    transition: transform 1.3s cubic-bezier(0.49, 0.99, 0.54, 0.98) 0.03s,
+                opacity 1.6s cubic-bezier(0.49, 0.99, 0.54, 0.98) 0.03s;
+}
+
+#section7.active .sec7 {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Slide Wrapper */
+.sec7 .slide_wrap {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.sec7 .slide_wrap .slide_list {
+    position: relative;
+    height: 516.33px;
+}
+
+.sec7 .slide_wrap .slide_list li {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 1.3s cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: 1;
+}
+
+.sec7 .slide_wrap .slide_list li:after {
+    content: '';
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    width: 120px;
+    height: 14px;
+    background: rgba(0, 0, 0, 0.1);
+    transition: 0.25s;
+    border-radius: 50%;
+    transform: translateX(-50%);
+}
+
+.sec7 .slide_wrap .slide_list li:hover:after {
+    width: 140px;
+}
+
+/* Slide Positions */
+.sec7 .slide_wrap .slide_list li.item1 {
+    z-index: 2;
+    transform: translateX(-50%) scale(1) translate3d(0, 0, 0);
+}
+
+.sec7 .slide_wrap .slide_list li.item2 {
+    z-index: 1;
+    transform: translateX(-33%) scale(0.7) translate3d(240%, -10%, 0);
+}
+
+.sec7 .slide_wrap .slide_list li.item3 {
+    z-index: -1;
+    transform: translateX(-43%) scale(0.5) translate3d(180%, -31%, 0);
+}
+
+.sec7 .slide_wrap .slide_list li.item4 {
+    z-index: -1;
+    transform: translateX(-58%) scale(0.5) translate3d(-180%, -31%, 0);
+}
+
+.sec7 .slide_wrap .slide_list li.item5 {
+    z-index: 1;
+    transform: translateX(-67%) scale(0.7) translate3d(-240%, -10%, 0);
+}
+
+/* Mobile Item Images */
+.sec7 .slide_wrap .slide_list li .mobile_item_img {
+    position: absolute;
+    left: 6.6%;
+    top: 12.1%;
+    width: 217px;
+    height: 386px;
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
+.sec7 .slide_wrap .slide_list li .mobile_item_img:before,
+.sec7 .slide_wrap .slide_list li .mobile_item_img:after {
+    content: '';
+    position: absolute;
+    width: 203%;
+    height: 100%;
+    top: 0%;
+    background: var(--color-text-shadow);
+    transition: var(--transition-slow);
+    transform: skew(30deg);
+}
+
+.sec7 .slide_wrap .slide_list li .mobile_item_img:before {
+    left: -256%;
+}
+
+.sec7 .slide_wrap .slide_list li .mobile_item_img:after {
+    left: 167%;
+}
+
+.sec7 .slide_wrap .slide_list li:hover .mobile_item_img:before {
+    left: -116%;
+}
+
+.sec7 .slide_wrap .slide_list li:hover .mobile_item_img:after {
+    left: 20%;
+}
+
+/* Project Images */
+.sec7 .slide_wrap .slide_list li .mobile_item_img.todolist {
+    background: url("../images/chanse.PNG") no-repeat center/cover;
+}
+
+.sec7 .slide_wrap .slide_list li .mobile_item_img.eshop {
+    background: url("../images/fatigue.PNG") no-repeat center/cover;
+}
+
+.sec7 .slide_wrap .slide_list li .mobile_item_img.lookbook {
+    background: url("../images/immersion.PNG") no-repeat center/cover;
+}
+
+.sec7 .slide_wrap .slide_list li .mobile_item_img.miniportfolio {
+    background: url("../images/recharge.PNG") no-repeat center/cover;
+}
+
+.sec7 .slide_wrap .slide_list li .mobile_item_img.responsive {
+    background: url("../images/encouragement.PNG") no-repeat center/cover;
+}
+
+/* Project Title Hover Effect */
+.sec7 .slide_wrap .slide_list li h3 {
+    position: absolute;
+    top: 37%;
+    left: 100%;
+    transform: translate(-50%, -50%);
+    color: var(--color-white);
+    font-size: 25px;
+    padding: var(--spacing-xs);
+    width: 77%;
+    text-align: center;
+    transition: var(--transition-slow);
+    z-index: 3;
+    opacity: 0;
+}
+
+.sec7 .slide_wrap .slide_list li:hover h3 {
+    left: 50%;
+    opacity: 1;
+}
+
+/* Slide Navigation */
+.sec7 .slide_nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    z-index: 3;
+}
+
+.sec7 .slide_nav span {
+    position: absolute;
+    width: 32px;
+    height: 52px;
+    background: url("../images/sprite.png") no-repeat;
+    cursor: pointer;
+    transition: opacity var(--transition-base);
+}
+
+.sec7 .slide_nav span:hover {
+    opacity: 0.7;
+}
+
+.sec7 .slide_nav .prev {
+    left: 2%;
+    background-position: 0 -315px;
+}
+
+.sec7 .slide_nav .next {
+    right: 2%;
+    background-position: -43px -315px;
+}
+
+/* Slide Dots */
+.sec7 .slide_dot {
+    position: absolute;
+    left: 0;
+    top: 108%;
+    width: 100%;
+    z-index: 2;
+}
+
+.sec7 .slide_dot ul {
+    display: flex;
+    justify-content: center;
+}
+
+.sec7 .slide_dot ul li {
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin: 15px 12px;
+    cursor: pointer;
+}
+
+.sec7 .slide_dot ul li em {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border: 2px solid var(--color-accent);
+    text-indent: -9999em;
+    transition: border-color var(--transition-base);
+}
+
+.sec7 .slide_dot ul li em:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    background: var(--color-dark);
+    border-radius: 50%;
+    box-shadow: 0 0 1px #000000;
+    transform: scale(3);
+    transition: opacity var(--transition-base),
+                transform var(--transition-base),
+                visibility 0s 0.3s;
+}
+
+.sec7 .slide_dot ul li.active em {
+    border-color: var(--color-primary);
+}
+
+.sec7 .slide_dot ul li.active em:after {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    transition: opacity var(--transition-base),
+                transform var(--transition-base);
+}
+
+/* ========================================
+   Video Popup Section
+   ======================================== */
+#pop {
+    width: 100%;
+    height: 400px;
+    margin-top: 250px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.video_info {
+    color: var(--color-secondary);
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
     text-shadow: 2px 2px 2px #000000;
     display: block;
-    text-align: center;    
-    }
-    .card_popup{ 
-    margin-top: 50px;     
-    margin-left: 50%;
-    width: 5vw;
-    min-height: 5vh;
-    font-size: 1rem;
+    text-align: center;
+}
+
+.card_popup {
+    margin-top: var(--spacing-lg);
+    width: 150px;
+    min-height: 50px;
+    font-size: var(--font-size-base);
     font-weight: bold;
-    background: #FF6655; 
-    cursor: pointer; 
-    color: #ffffff;
+    background: var(--color-primary);
+    cursor: pointer;
+    color: var(--color-white);
     border-radius: 5px;
     filter: drop-shadow(0.2vw 0.2vw 0.2vw rgba(0, 0, 0, 0.3));
     text-align: center;
-    border: none;    
-    }                        
-    footer{
-    width: 100%; 
-    height: 600px; 
-    display: block;
-    position: relative;    
-    background: linear-gradient(225deg, #FF6655, #F77F00);   
-    color: white;  
-    }  
-    .fobox{
-    width: 75%; 
-    height: 100%;   
-    position: relative; 
-    align-content: center; 
-    left: 50%; 
-    transform: translateX(-50%);}
-    .fotxt{
-    width: 100%; 
-    height: 40px; 
-    display: flex; 
-    position: relative;}
-    .fotxt>div{
-    width: 15%;}
-    .fam{
-    position: absolute; 
-    right: 0; 
-    height: 35px; 
-    bottom: 20px; 
-    text-align: center; 
-    align-content: center; 
-    border-top: 0.1px solid rgba(255, 255, 255, 0.333); 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.637);}
-    .fost{
-    width: 100%; 
-    height: 0.3px; 
-    background-color: rgba(255, 255, 255, 0.185); 
-    margin-bottom: 30px; 
-    margin-top: 10px;}
-    .foad{
-    width: 100%; 
-    height: 50px; 
-    color: rgba(255, 255, 255, 0.562); 
-    line-height: 30px;}
-    /* footer end */ 
-    /* Responsive CSS */
-    /* 화면 폭이 1024px 이하일 때 */
-    @media (max-width: 1024px) {
-    nav {
-    padding: 15pt 15pt 15pt 20pt;
-    }
-    #navlogo {
+    border: none;
+    transition: transform var(--transition-base),
+                filter var(--transition-base);
+}
+
+.card_popup:hover {
+    transform: translateY(-2px);
+    filter: drop-shadow(0.3vw 0.3vw 0.3vw rgba(0, 0, 0, 0.5));
+}
+
+.popup_display {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    filter: drop-shadow(1vw 1vw 2vw rgba(0, 0, 0, 0.3));
+    background: #000000;
+    display: none;
+    z-index: 10000;
+    overflow-y: auto;
+}
+
+#movie {
+    margin-top: var(--spacing-xs);
     display: flex;
-    flex-direction: row;
-    }
-    #navlogo img {
-    width: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+#movie video {
+    max-width: 90%;
+    max-height: 80vh;
+}
+
+.popup_close {
+    background: var(--color-white);
+    border-radius: 10px;
+    border: 3px solid var(--color-primary);
+    width: 150px;
     height: 50px;
-    }
-    #navlogo p {
-    font-size: 1rem;
-    margin-left: auto;
-    }
-    #menu a {
-    margin-left: 15pt;
-    font-size: 0.9rem;
-    }
-    .op img {
-    width: 200px;  /* 이미지 크기 축소 */
-    margin-top: 12vh;
-    }
-    #typing {
-    font-size: 2rem; /* 타이핑 영역 폰트 크기 축소 */
-    }
-    #click {
-    max-width: 80px;
-    transform: translateY(20vh);
-    }
-    #click i {
-    font-size: 2rem;
-    }
-    }
-    /* 화면 폭이 768px 이하일 때 */
-    @media (max-width: 768px) {    
-    #appnav{
-    display: block;  
-    }
-    #appmenu{
+    color: var(--color-primary);
+    font-size: var(--font-size-base);
+    font-weight: bold;
+    cursor: pointer;
     display: block;
+    margin: var(--spacing-sm) auto;
+    transition: all var(--transition-base);
+}
+
+.popup_close:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    filter: drop-shadow(0.5vh 0.5vh 0 rgba(0, 0, 0, 0.3));
+}
+
+.popup_display p {
+    color: red;
+    margin-left: var(--spacing-lg);
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+}
+
+.popup_display span {
+    color: var(--color-white);
+    text-align: left;
+    margin-left: var(--spacing-lg);
+    font-size: var(--font-size-base);
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+footer {
+    width: 100%;
+    height: 600px;
+    display: block;
+    position: relative;
+    background: var(--gradient-orange);
+    color: var(--color-white);
+}
+
+.fobox {
+    width: 75%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.fotxt {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    position: relative;
+    margin-bottom: var(--spacing-sm);
+}
+
+.fotxt > div {
+    width: 15%;
+    cursor: pointer;
+    transition: color var(--transition-base);
+}
+
+.fotxt > div:hover {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.foad {
+    width: 100%;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 30px;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+@media (max-width: 1024px) {
+    :root {
+        --font-size-xl: 2rem;
+        --font-size-2xl: 2.5rem;
+        --font-size-3xl: 40px;
     }
+
+    .op {
+        margin-top: 12vh;
     }
+
+    .op img {
+        width: 200px;
+    }
+
+    #typing {
+        font-size: 2rem;
+        min-height: 120px;
+    }
+
+    #click {
+        bottom: 6vh;
+        max-width: 80px;
+    }
+
+    #click i {
+        font-size: 2rem;
+    }
+
+    .output-background,
+    .output-typing {
+        font-size: 2rem;
+    }
+    
+    .line-group {
+        height: 50px;
+    }
+    
+    #autotyping {
+        min-height: 600px;
+    }
+
+    nav {
+        padding: 15pt 15pt 15pt 20pt;
+    }
+
+    #navlogo p {
+        font-size: var(--font-size-base);
+    }
+
+    #menu a {
+        margin-left: 15pt;
+        font-size: 0.9rem;
+    }
+
+    .container {
+        padding: var(--spacing-lg) 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .op {
+        margin-top: 10vh;
+    }
+
+    .op img {
+        width: 150px;
+    }
+
+    #typing {
+        font-size: 1.5rem;
+        min-height: 100px;
+    }
+
+    #click {
+        bottom: 5vh;
+        max-width: 70px;
+    }
+
+    #click i {
+        font-size: 1.8rem;
+    }
+
+    .output-background,
+    .output-typing {
+        font-size: 1.5rem;
+    }
+    
+    .line-group {
+        height: 40px;
+        margin: 10px 0;
+    }
+    
+    #autotyping {
+        min-height: 500px;
+        padding: var(--spacing-lg) var(--spacing-sm);
+    }
+
+    #navlogo {
+        display: none;
+    }
+
+    #appnav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    #appnav img {
+        width: 40px;
+        height: 40px;
+    }
+
+    #appnav p {
+        color: var(--color-white);
+        font-size: var(--font-size-base);
+        text-shadow: 0 1px 10px rgb(235, 98, 7);
+    }
+
+    #appmenu {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: var(--nav-height);
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        padding: var(--spacing-sm);
+        transform: translateY(-100%);
+        transition: transform var(--transition-base);
+    }
+
+    #appmenu.active {
+        transform: translateY(0);
+    }
+
+    #appmenu a {
+        color: var(--color-white);
+        padding: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .card_popup {
+        width: 120px;
+        min-height: 45px;
+    }
+
+    .popup_close {
+        width: 120px;
+        height: 45px;
+    }
+
+    footer {
+        height: auto;
+        padding: var(--spacing-lg) 0;
+    }
+
+    .fobox {
+        width: 90%;
+    }
+}

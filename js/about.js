@@ -13,7 +13,7 @@ let st = 0;
 			//About에서 오른쪽 "skill" bar 애니메이션
 			$("#photo progress").animate({value : 80});
 			$("#html progress").delay(100).animate({value : 90});
-			$("#jquery progress").delay(200).animate({value : 70});					
+			$("#jquery progress").delay(200).animate({value : 90});					
 		}
 
 		if( st>= port1Top ){

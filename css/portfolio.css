@@ -1,614 +1,649 @@
-        /*공통*/
-        * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        }
-        body{
-        width: 100vw;
-        overflow-x: hidden;
-        background: #F77F00;
-        }
-        ::-webkit-scrollbar {
-        display: none;
-        }
-        img {
-        display: block;
-        max-width: 100%;
-        }
-        a {
-        text-decoration: none;
-        }
-        /*상단 내비게이션*/
-        nav {
-        position: fixed;
+/* ========================================
+   CSS Variables - 스프링부트 통합 시 테마 관리 용이
+   ======================================== */
+:root {
+    /* Color Palette */
+    --color-primary: #FF6655;
+    --color-secondary: #F77F00;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-gray: #cac7c7;
+    --color-blue: blue;
+    --color-text-shadow: rgba(0, 0, 0, 0.8);
+    
+    /* Gradient */
+    --gradient-orange: linear-gradient(225deg, #FF6655, #F77F00);
+    
+    /* Spacing */
+    --spacing-xs: 10px;
+    --spacing-sm: 20px;
+    --spacing-md: 30px;
+    --spacing-lg: 50px;
+    --spacing-xl: 100px;
+    --spacing-2xl: 200px;
+    --spacing-3xl: 300px;
+    --spacing-4xl: 400px;
+    
+    /* Font Sizes */
+    --font-size-base: 1rem;
+    --font-size-lg: 1.2rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2.5rem;
+    --font-size-3xl: 3rem;
+    
+    /* Layout */
+    --max-width-container: 1490px;
+    --project-card-width: 400px;
+    --project-card-height: 400px;
+    --mobile-width: 370px;
+    --mobile-height: 770px;
+    
+    /* Transitions */
+    --transition-base: 0.3s ease;
+    --transition-slow: 1s ease-out;
+}
+
+/* ========================================
+   Common Styles
+   ======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    overflow-x: hidden;
+    background: var(--color-secondary);
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* ========================================
+   Navigation
+   ======================================== */
+nav {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    padding: var(--spacing-md) var(--spacing-sm);
+    font-weight: 700;
+    background: none;
+    top: 0;
+    transition: background var(--transition-base);
+}
+
+nav.act {
+    position: sticky;
+    background: var(--color-black);
+}
+
+#navlogo {
+    max-width: var(--max-width-container);
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
+
+#navlogo img {
+    width: 50px;
+    height: 50px;
+}
+
+#navlogo p {
+    color: var(--color-white);
+    font-size: var(--font-size-lg);
+    padding: var(--spacing-xs) 5px;
+    flex: 1;
+    text-shadow: 5px 1px 10px var(--color-black);
+}
+
+#menu {
+    display: flex;
+    align-items: center;
+}
+
+#menu a {
+    color: var(--color-white);
+    margin-left: var(--spacing-sm);
+    text-shadow: 0 1px 10px rgb(48, 77, 135);
+    transition: color var(--transition-base);
+}
+
+#menu a:hover {
+    color: var(--color-black);
+}
+
+/* Mobile Navigation - Hidden by default */
+#appnav,
+#appmenu {
+    display: none;
+}
+
+/* ========================================
+   Portfolio Section
+   ======================================== */
+#Portfolio {
+    margin-top: var(--spacing-xl);
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+}
+
+#Portfolio h2 {
+    color: var(--color-white);
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    text-shadow: 2px 2px 2px var(--color-black);
+    display: block;
+    text-align: center;
+}
+
+/* Scroll Indicator */
+#scroll {
+    width: 100%;
+}
+
+#click {
+    display: block;
+    max-width: 100px;
+    margin: auto;
+    text-align: center;
+    padding: 6vh 0;
+}
+
+#click i,
+#click_01 i,
+#click_02 i,
+#click_03 i {
+    font-size: var(--font-size-2xl);
+    color: var(--color-white);
+    display: block;
+    animation: scrollBounce 1s infinite;
+    text-shadow: 0 1px 1px var(--color-black);
+}
+
+@keyframes scrollBounce {
+    0%, 100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-10px);
+        opacity: 0.5;
+    }
+}
+
+#click a,
+#click_01 p,
+#click_02 p,
+#click_03 p {
+    color: var(--color-white);
+    text-shadow: 2px 2px 2px #666;
+}
+
+#space {
+    margin-top: var(--spacing-lg);
+}
+
+/* ========================================
+   Portfolio Item - Common Styles
+   ======================================== */
+.portfolio-item {
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-xl) var(--spacing-lg);
+    margin: var(--spacing-2xl) 0;
+}
+
+/* Slide-in Animation */
+.portfolio-item {
+    opacity: 0;
+    transition: opacity var(--transition-slow), 
+                transform var(--transition-slow);
+}
+
+.portfolio-item.slide-in {
+    opacity: 1;
+    transform: translateX(0) !important;
+}
+
+/* Left-side Animation (PC versions) */
+#hyung_pc,
+#nail_pc {
+    transform: translateX(-100%);
+}
+
+/* Right-side Animation (Mobile versions) */
+#hyung_mobile,
+#nail_mobile {
+    transform: translateX(100%);
+    flex-direction: row-reverse;
+}
+
+/* ========================================
+   Monitor Container (PC Versions)
+   ======================================== */
+.monitor-container,
+.nail-pc-container {
+    position: relative;
+    width: var(--project-card-width);
+    flex-shrink: 0;
+}
+
+.monitor-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    background: var(--color-white);
+    filter: blur(1px);
+}
+
+.screen,
+.sreen_nail_pc {
+    position: absolute;
+    top: 12%; /* 기존: 20% -> 모니터 화면 상단 여백 줄임 */
+    left: 10%; /* 기존: 15% -> 모니터 좌측 여백 줄임 */
+    width: 80%; /* 기존: 72% -> 모니터 내부 화면 가로 폭 늘림 */
+    height: 60%; /* 기존: 26% -> 모니터 내부 화면 세로 높이 늘림 */
+    overflow: hidden;
+    background: var(--color-black);
+    border-radius: 5px;
+}
+
+.sreen_nail_pc {
+    top: 13%; /* 기존과 동일 */
+    height: 60%; /* 기존: 18% -> 모니터 내부 화면 세로 높이 늘림 */
+}
+
+/* ========================================
+   Mobile Container
+   ======================================== */
+.mobile-container,
+.nail-mobile-container {
+    position: relative;
+    width: var(--mobile-width);
+    height: var(--mobile-height);
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.mobile-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    background: var(--color-white);
+}
+
+.screen_mobile,
+.screen_nail_mobile {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ========================================
+   Video Styles
+   ======================================== */
+video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+/* ========================================
+   Project Details Card - Common Styles
+   ======================================== */
+.project-details .left {
+    position: relative;
+    width: var(--project-card-width);
+    min-height: var(--project-card-height);
+    background: var(--color-gray);
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px gray;
+    padding: var(--spacing-sm);
+    text-shadow: 2px 1px 2px var(--color-black);
+    color: var(--color-secondary);
+    font-weight: 700;
+}
+
+.project-details .left h3 {
+    font-size: var(--font-size-xl);
+    padding-bottom: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs);
+    border-bottom: 1px solid var(--color-secondary);
+}
+
+.project-details .left ul {
+    list-style: none;
+    line-height: 2.5;
+    padding-bottom: 15pt;
+    margin: 0;
+}
+
+.project-details .left li {
+    display: flex;
+    padding-bottom: 5px;
+}
+
+.project-details .left li b {
+    flex: 0 0 auto;
+    min-width: 100px;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+}
+
+.project-details .left li span {
+    flex: 1;
+    text-align: left;
+    letter-spacing: 0.1em;
+    word-break: keep-all;
+}
+
+/* Project Link Button */
+.project-details .left a,
+.project-link {
+    border: 1px solid var(--color-blue);
+    border-radius: 5pt;
+    color: var(--color-blue);
+    font-weight: 700;
+    font-size: var(--font-size-base);
+    display: inline-block;
+    text-align: center;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background var(--transition-base), 
+                color var(--transition-base),
+                border var(--transition-base);
+}
+
+.project-details .left a:hover,
+.project-link:hover {
+    background: var(--color-secondary);
+    color: var(--color-white);
+    border: 1px solid var(--color-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================
+   Scroll Indicators Between Projects
+   ======================================== */
+#click_01 {
+    display: block;
+    max-width: 100px;
+    margin: auto;
+    text-align: center;
+    padding: var(--spacing-lg) 0;
+}
+
+#click_02 {
+    display: block;
+    max-width: 100px;
+    margin: auto;
+    text-align: center;
+    padding: var(--spacing-2xl) 0 var(--spacing-lg) 0;
+}
+
+#click_03 {
+    display: block;
+    max-width: 100px;
+    margin: auto;
+    text-align: center;
+    padding: var(--spacing-lg) 0;
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+footer {
+    width: 100%;
+    height: 600px;
+    margin-top: var(--spacing-3xl);
+    display: block;
+    position: relative;
+    background: var(--gradient-orange);
+    color: var(--color-white);
+}
+
+.fobox {
+    width: 75%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.fotxt {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    position: relative;
+    margin-bottom: var(--spacing-sm);
+}
+
+.fotxt > div {
+    width: 15%;
+    cursor: pointer;
+    transition: color var(--transition-base);
+}
+
+.fotxt > div:hover {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.foad {
+    width: 100%;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 30px;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+@media (max-width: 1400px) {
+    .portfolio-item {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+
+    .project-details .left {
+        width: 350px;
+    }
+
+    .monitor-container,
+    .nail-pc-container {
+        width: 350px;
+    }
+}
+
+@media (max-width: 1024px) {
+    :root {
+        --font-size-3xl: 2rem;
+        --project-card-width: 320px;
+        --mobile-width: 300px;
+        --mobile-height: 650px;
+    }
+
+    .portfolio-item {
+        flex-direction: column !important;
+        padding: var(--spacing-lg) var(--spacing-sm);
+        margin: var(--spacing-xl) 0;
+        transform: none !important;
+    }
+
+    #hyung_mobile,
+    #nail_mobile {
+        flex-direction: column;
+    }
+
+    .project-details .left {
         width: 100%;
-        z-index: 1;
-        padding: 30pt 20pt 20pt 20pt;
-        font-weight: 700;
-        background: none;
-        top: 0;
-        }
-        nav.act {
-        position: sticky;
-        width: 100vw;
-        background: #000000;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        }
-        #navlogo {
-        max-width: 1490px;
-        margin: auto;
-        display: flex;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-        bottom: 50px;
-        }
-        #navlogo img {
-        width: 50px;
-        height: 50px;
-        }
-        #navlogo p {
-        color: white;
-        font-size: 1.2rem;
-        padding: 10px 5px;
-        flex: 1;
-        text-shadow: 5px 1px 10px #000000;
-        }
-        #menu a {
-        color: white;
-        margin-left: 20pt;
-        text-shadow: 0 1px 10px rgb(48, 77, 135);
-        }
-        #menu a:hover {
-        color: #000000;
-        }
-        /* 모바일에서 pc 상단 네브 가리기 */
-        #appnav {
-        display: none;
-        }
-        #appmenu {
-        display: none;
-        }
-        #Portfolio{
-        margin-top: 100px;
-        width: 100%; 
-        min-height: 100vh;
-        height: auto;   
-        }
-        h2{
-        color: #ffffff;
-        font-size: 3rem;
-        font-weight: 700;    
-        text-shadow: 2px 2px 2px #000000;
-        display: block;
-        text-align: center;    
-        }  
-        #click {
-        display: block;
-        max-width: 100px;
-        margin: auto;
-        text-align: center;
-        transform: translateY(6vh);
-        }
-        #click i {
-        font-size: 2.5rem;
-        color: white;
-        display: block;
-        animation: upDown 1s infinite;
-        text-shadow: 0 1px 1px black;
-        }   
-        #click a {
-        color: white;
-        text-shadow: 2px 2px 2px #666;
-        }   
-        #space{
-            margin-top: 50px;
-        }
-        /* 형지엘리트 pc */
-        #hyung_pc {
+        max-width: 500px;
+    }
+
+    .monitor-container,
+    .nail-pc-container {
         width: 100%;
-        min-height: 100vh;
-        height: auto;
-        margin-top: 200px;  
-        display: flex;   
-        gap: 30px;
-        margin-left: 10%;
-        transform: translateX(-100%);
-        transition: transform 1s ease-out;
-        }
-        #hyung_pc.slide-in {
-        transform: translateX(0);
-        }
-        /* 모니터 영역 */
-        .monitor-container {
-        position: relative;
-        width: 400px;
-        height: 600px;    
-        }
-        .monitor-image {
-        width: 400px;
-        height: 400px;
-        display: block;
-        border-radius: 10px;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-        background: #ffffff;
-        filter: blur(1px);
-        }
-        .screen {
-        position: absolute;
-        top: 20%;
-        left: 15%;
-        width: 72%;
-        height: 26%;
-        overflow: hidden;
-        background: #ffffff;
-        }
-        /* 설명 영역 (형지엘리트 정보) */
-        .hyung_pc_explain {
-        position: relative;
-        width: 400px;
-        height: 400px;
-        background: #cac7c7;   
-        border-radius: 10px;
-        box-shadow: 2px 2px 5px gray;
-        padding: 10px;
-        text-shadow: 2px 1px 2px #000000;
-        color: #F77F00;
-        font-weight: 700;
-        }
-        /* 포트폴리오 내용 내부 스타일 */
-        .hyung_pc_explain h3 {
-        font-size: 1.5rem;
-        padding-bottom: 10pt;
-        margin-bottom: 10px;
-        border-bottom: 1px solid #F77F00;
-        }
-        .hyung_pc_explain ul {
-        list-style: none;
-        line-height: 2.5;
-        padding-bottom: 15pt;
-        margin: 0;
-        white-space: nowrap;    
-        }
-        .hyung_pc_explain li {
-        display: flex;
-        padding-bottom: 5px;
-        }
-        .hyung_pc_explain li b {
-        flex: 0.15;
-        font-weight: bold; 
-        letter-spacing: 0.2em;   
-        }
-        .hyung_pc_explain li span {
-        flex: 0.85;
-        text-align: justify;
-        letter-spacing: 0.1em;
-        }
-        /* 링크 버튼 스타일 */
-        .hyung_pc_explain a {
-        border: 1px solid blue;
-        border-radius: 5pt;
-        color: blue;
-        font-weight: 700;
-        font-size: 1rem;
-        display: inline-block;    
-        text-align: center; 
-        padding: 3px; 
-        text-decoration: none;
-        transition: background 0.3s ease, color 0.3s ease;
-        }  
-        .hyung_pc_explain a:hover{
-        background: #F77F00;
-        margin-bottom: 50px ;
-        color: #ffffff;
-        border: 1px solid #F77F00;
-        }
-        /* 포트폴리오 상세 애니메이션 (#port1) */
-        #port1 {
-        display: flex;  
-        flex-direction: row;  
-        }
-        /* 만약 #port1 내부에 추가 마진 조정이 필요하다면 */
-        #port1 div.left {
-        margin-right: 60pt;
-        }
-        #click_01 {
-        display: block;
-        max-width: 100px;
-        margin: auto;
-        text-align: center;
-        transform: translateY(-30vh);
-        }
-        #click_01 i {
-        font-size: 2.5rem;
-        color: white;
-        display: block;
-        animation: upDown 1s infinite;
-        text-shadow: 0 1px 1px black;
-        }   
-        #click_01 p {
-        color: white;
-        text-shadow: 2px 2px 2px #666;
-        }  
-        /* 형지엘리트 모바일 */
-        #hyung_mobile { 
-        display: flex;
-        margin-left: 45%;   
-        transform: translateX(200%);
-        transition: transform 1s ease-out;
-        gap: 20px;
-        } 
-        #hyung_mobile.slide-in {
-        transform: translateX(0);
-        }   
-        .mobile-container {
-        position: relative;
-        width: 370px; 
-        height: 770px;
-        overflow: hidden;
-        margin-left: 15px;
-        margin-top: 25px;     
-        }
-        .mobile-image {
-        width: 100%;
-        height: 100%x;  
-        border-radius: 10px;
-        box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-        background: #ffffff;
-        }
-        .screen_mobile {         
-        width: 100%;
-        height: 100%; 
-        margin-top: -770px;     
-        overflow: hidden;                   
-        }  
-        video {             
-        width: 100%;
-        height: 100%;
-        display: block; 
-        position: absolute;          
-        }   
-        /* 왼쪽 영역 (.left) 스타일 */
-        #port2 .left {
-        position: relative;
-        width: 400px;
-        height: 400PX;
-        margin-top: 150px;
-        background: #cac7c7;       
-        border-radius: 10px;
-        box-shadow: 2px 2px 5px gray;
-        padding: 10px;
-        text-shadow: 2px 1px 2px #000000;
-        color: #F77F00;
-        font-weight: 700;
-        }
-        /* 제목 스타일 */
-        #port2 .left h3 {
-        font-size: 1.5rem;
-        padding-bottom: 10pt;
-        margin-bottom: 10px;
-        border-bottom: 1px solid #F77F00;
-        }
-        /* 리스트 스타일 */
-        #port2 .left ul {
-        list-style: none;
-        line-height: 2.5;
-        padding-bottom: 15pt;
-        margin: 0;
-        White-space: nowrap; 
-        }
-        #port2 .left li {
-        display: flex;
-        padding-bottom: 5px;
-        }
-        #port2 .left li b {
-        flex: 0.15;         /* 글자와 내용 간의 비율 조정 */
-        font-weight: bold;
-        letter-spacing: 0.2em;  /* 라벨 텍스트 간격 */
-        }
-        #port2 .left li span {
-        flex: 0.85;
-        text-align: justify;
-        letter-spacing: 0.1em;
-        }
-        /* 링크 버튼 스타일 */
-        #port2 .left a {
-        border: 1px solid blue;
-        border-radius: 5pt;
-        color: blue;
-        font-weight: 700;
-        font-size: 1rem;
-        display: inline-block;
-        text-align: center;
-        padding: 3px
-        text-decoration: none;
-        transition: background 0.3s ease, color 0.3s ease;
-        }
-        #port2 .left a:hover {
-        background: #F77F00;
-        color: #ffffff;
-        border: 1px solid #F77F00;
-        margin-bottom: 50px ;
-        }
-        #click_02 {
-        display: block;
-        max-width: 100px;
-        margin: auto;
-        text-align: center;
-        transform: translateY(20vh);
-        }
-        #click_02 i {
-        font-size: 2.5rem;
-        color: white;
-        display: block;
-        animation: upDown 1s infinite;
-        text-shadow: 0 1px 1px black;
-        }   
-        #click_02 p {
-        color: white;
-        text-shadow: 2px 2px 2px #666;
-        } 
-        /* 네일아트 PC 섹션 */
-        #nail_pc {
-        width: 100%;
-        min-height: 100vh;
-        height: auto;
-        margin-top: 400px;
-        display: flex;
-        margin-left: -18%;
-        transform: translateX(-100%);
-        transition: transform 1s ease-out;
-        }
-        #nail_pc.slide-in {
-        transform: translateX(0);
-        }
-        /* 모니터 영역 */
-        .nail-pc-container {
-        position: relative;
-        width: 400px;
-        margin: 0 auto;
-        }
-        .sreen_nail-image {
-        width: 100%;
-        height: auto;
-        border-radius: 10px;
-        box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-        background: #000000;
-        filter: blur(1px);    
-        }
-        .sreen_nail_pc {
-        position: absolute;
+        max-width: 400px;
+    }
+
+    .screen,
+    .sreen_nail_pc {
+    top: 12%; 
+    left: 10%; 
+    width: 80%; 
+    height: 60%; 
+    }
+
+    .sreen_nail_pc {
         top: 13%;
-        left: 15%;
-        width: 72%;
-        height: 18%;
-        overflow: hidden;
-        background: #000000;
-        }      
-        /* 포트폴리오 상세 내용 (#port3) */
-        #port3 .left {
-        position: relative;
-        width: 400px;
-        height: 400px;    
-        margin-left: -130%;
-        background: #cac7c7;    
-        border-radius: 10px;
-        box-shadow: 2px 2px 5px gray;
-        padding: 10px;
-        text-shadow: 2px 1px 2px #000000;
-        color: #F77F00;
-        font-weight: 700;
+        height: 60%;
+    }
+
+    .mobile-container,
+    .nail-mobile-container {
+        width: 100%;
+        max-width: 350px;
+        height: auto;
+        aspect-ratio: 370 / 770;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --font-size-3xl: 1.8rem;
+        --spacing-2xl: 100px;
+        --spacing-3xl: 150px;
+    }
+
+    #navlogo {
+        display: none;
+    }
+
+    #appnav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    #appnav img {
+        width: 40px;
+        height: 40px;
+    }
+
+    #appnav p {
+        color: var(--color-white);
+        font-size: var(--font-size-base);
+        text-shadow: 5px 1px 10px var(--color-black);
+    }
+
+    #appmenu {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
         left: 0;
-        }
-        #port3 .left h3 {
-        font-size: 1.5rem;
-        padding-bottom: 10pt;
-        margin-bottom: 10px;
-        border-bottom: 1px solid #F77F00;
-        }
-        #port3 .left ul {
-        list-style: none;
-        line-height: 2.5;
-        padding-bottom: 15pt;
-        margin: 0;
-        white-space: nowrap;
-        }
-        #port3 .left li {
-        display: flex;
-        padding-bottom: 5px;
-        }
-        #port3 .left li b {
-        flex: 0.15;
-        font-weight: bold;
-        letter-spacing: 0.2em;
-        }
-        #port3 .left li span {
-        flex: 0.85;
-        text-align: justify;
-        letter-spacing: 0.1em;
-        }
-        /* 링크 버튼 스타일 */
-        #port3 .left a {
-        border: 1px solid blue;
-        border-radius: 5pt;
-        color: blue;
-        font-weight: 700;
-        font-size: 1rem;
-        display: inline-block;
-        text-align: center;
-        padding: 3px;
-        text-decoration: none;
-        transition: background 0.3s ease, color 0.3s ease;
-        }
-        #port3 .left a:hover {
-        background: #F77F00;
-        color: #ffffff;
-        border: 1px solid #F77F00;
-        }
-        #click_03 {
-        display: block;
-        max-width: 100px;
-        margin: auto;
-        text-align: center;
-        transform: translateY(-30vh);
-        }
-        #click_03 i {
-        font-size: 2.5rem;
-        color: white;
-        display: block;
-        animation: upDown 1s infinite;
-        text-shadow: 0 1px 1px black;
-        }   
-        #click_03 p {
-        color: white;
-        text-shadow: 2px 2px 2px #666;
-        }             
-        /* 네일아트 모바일 */
-        #nail_mobile { 
-        display: flex;   
-        margin-left: 45%;       
-        transform: translateX(200%);
-        transition: transform 1s ease-out;
-        gap: 20px;
-        }
-        #nail_mobile.slide-in {
-        transform: translateX(0);
-        } 
-        .nail-mobile-container {
-        position: relative;
-        width: 370px; 
-        height: 770px;
-        overflow: hidden;
-        margin-left: 15px;
-        margin-top: 25px;    
-        }
-        .nail-mobile-image {
-        width: 400px;
-        height: 400px;
-        display: block;
-        border-radius: 10px;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-        background: #ffffff;
-        filter: blur(1px);
-        }    
-        .screen_nail_mobile {
         width: 100%;
-        height: 100%; 
-        margin-top: -770px;     
-        overflow: hidden;      
-        }  
-        video {
+        background: rgba(0, 0, 0, 0.9);
+        padding: var(--spacing-sm);
+        transform: translateY(-100%);
+        transition: transform var(--transition-base);
+    }
+
+    #appmenu.active {
+        transform: translateY(0);
+    }
+
+    #appmenu a {
+        color: var(--color-white);
+        padding: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    #Portfolio h2 {
+        font-size: 2rem;
+    }
+
+    .portfolio-item {
+        padding: var(--spacing-md) var(--spacing-sm);
+    }
+
+    .project-details .left li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .project-details .left li b {
+        margin-bottom: 5px;
+    }
+
+    footer {
+        height: auto;
+        padding: var(--spacing-lg) 0;
+        margin-top: var(--spacing-2xl);
+    }
+
+    .fobox {
+        width: 90%;
+    }
+
+    .fotxt {
+        flex-direction: column;
+        height: auto;
+        gap: var(--spacing-sm);
+    }
+
+    .fotxt > div {
         width: 100%;
-        height: 100%;
-        display: block; 
-        position: absolute;   
-        }   
-        /* 왼쪽 영역 (.left) 스타일 */
-        #port4 .left {
-        position: relative;
-        width: 400px;
-        height: 400PX;
-        margin-top: 150px;
-        background: #cac7c7;       
-        border-radius: 10px;
-        box-shadow: 2px 2px 5px gray;
-        padding: 10px;
-        text-shadow: 2px 1px 2px #000000;
-        color: #F77F00;
-        font-weight: 700;
-        }
-        /* 제목 스타일 */
-        #port4 .left h3 {
-        font-size: 1.5rem;
-        padding-bottom: 10pt;
-        margin-bottom: 10px;
-        border-bottom: 1px solid #F77F00;
-        }
-        /* 리스트 스타일 */
-        #port4 .left ul {
-        list-style: none;
-        line-height: 2.5;
-        padding-bottom: 15pt;
-        margin: 0;
-        White-space: nowrap; 
-        }
-        #port4 .left li {
-        display: flex;
-        padding-bottom: 5px;
-        }
-        #port4 .left li b {
-        flex: 0.15;         /* 글자와 내용 간의 비율 조정 */
-        font-weight: bold;
-        letter-spacing: 0.2em;  /* 라벨 텍스트 간격 */
-        }
-        #port4 .left li span {
-        flex: 0.85;
-        text-align: justify;
-        letter-spacing: 0.1em;
-        }
-        /* 링크 버튼 스타일 */
-        #port4 .left a {
-        border: 1px solid blue;
-        border-radius: 5pt;
-        color: blue;
-        font-weight: 700;
-        font-size: 1rem;
-        display: inline-block;
-        text-align: center;
-        padding: 3px
-        text-decoration: none;
-        transition: background 0.3s ease, color 0.3s ease;
-        }
-        #port4 .left a:hover {
-        background: #F77F00;
-        color: #ffffff;
-        border: 1px solid #F77F00;
-        margin-bottom: 50px ;
-        }
-        footer{
-        width: 100%; 
-        height: 600px;
-        margin-top: 300px; 
-        display: block;
-        position: relative;    
-        background: linear-gradient(225deg, #FF6655, #F77F00);    
-        color: white;  
-        }  
-        .fobox{
-        width: 75%; 
-        height: 100%;   
-        position: relative; 
-        align-content: center; 
-        left: 50%; 
-        transform: translateX(-50%);}
-        .fotxt{
-        width: 100%; 
-        height: 40px; 
-        display: flex; 
-        position: relative;}
-        .fotxt>div{
-        width: 15%;}
-        .fam{
-        position: absolute; 
-        right: 0; 
-        height: 35px; 
-        bottom: 20px; 
-        text-align: center; 
-        align-content: center; 
-        border-top: 0.1px solid rgba(255, 255, 255, 0.333); 
-        border-bottom: 1px solid rgba(255, 255, 255, 0.637);}
-        .fost{
-        width: 100%; 
-        height: 0.3px; 
-        background-color: rgba(255, 255, 255, 0.185); 
-        margin-bottom: 30px; 
-        margin-top: 10px;}
-        .foad{
-        width: 100%; 
-        height: 50px; 
-        color: rgba(255, 255, 255, 0.562); 
-        line-height: 30px;}
-        /* footer end */
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --font-size-3xl: 1.5rem;
+    }
+
+    .project-details .left {
+        padding: 15px;
+    }
+
+    .project-details .left h3 {
+        font-size: var(--font-size-lg);
+    }
+
+    .project-details .left ul {
+        line-height: 2;
+    }
+}
