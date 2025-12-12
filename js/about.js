@@ -13,6 +13,8 @@ let st = 0;
 			//About에서 오른쪽 "skill" bar 애니메이션
 			$("#photo progress").animate({value : 80});
 			$("#html progress").delay(100).animate({value : 90});
+			$("#JavaScript progress").delay(100).animate({value : 80});
+			$("#Java progress").delay(100).animate({value : 60});
 			$("#jquery progress").delay(200).animate({value : 90});
 			$("#springboot progress").delay(300).animate({value : 90});
 			$("#Flutter progress").delay(400).animate({value : 70});					
